@@ -34,7 +34,7 @@ class ReferencesPelaksanaanDiklat implements FromView, ShouldAutoSize, WithEvent
     {
         return [
             AfterSheet::class    => function (AfterSheet $event) {
-                $cellRange = 'A1:B1';
+                $cellRange = 'A1:F1';
                 $event->sheet->getStyle($cellRange)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
