@@ -46,3 +46,5 @@ Route::middleware(['auth', 'permission:test view'])->get('/tests', function () {
 })->name('tests.index');
 
 Route::resource('alumni', App\Http\Controllers\AlumniController::class)->middleware('auth');
+
+Route::resource('diklats', App\Http\Controllers\DiklatController::class)->middleware('auth');

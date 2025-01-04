@@ -110,8 +110,25 @@ return [
      * This code below always changes when you use a generator, and maybe you must format the code.
      */
     "sidebars" => [
+
         [
-            'header' => 'Warga',
+            'header' => 'Diklat',
+            'permissions' => [
+                'diklat view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Data Diklat',
+                    'icon' => '<i class="bi bi-list"></i>',
+                    'route' => '/diklats',
+                    'permission' => 'diklat view',
+                    'permissions' => [],
+                    'submenus' => []
+                ]
+            ]
+        ],
+        [
+            'header' => 'Alumni',
             'permissions' => [
                 'alumni view'
             ],
