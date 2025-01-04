@@ -34,10 +34,10 @@
                 <ul>
                     <li><a href="{{ route('web') }}" class="{{ request()->routeIs('web') ? 'active' : '' }}">Home</a>
                     </li>
-                    {{-- <a href="{{ route('web.alumni') }}"
+                    <a href="{{ route('web.list') }}"
                         class="{{ request()->routeIs('web.list') || request()->routeIs('web.detail') ? 'active' : '' }}">
                         Daftar Alumni
-                    </a> --}}
+                    </a>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
             </nav>

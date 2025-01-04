@@ -21,7 +21,9 @@ Route::get('/web', function () {
     return redirect()->route('web');
 });
 Route::get('/', [LandingWebController::class, 'index'])->name('web');
-
+Route::get('/list', [LandingWebController::class, 'list'])->name('web.list');
+Route::get('/alumni/search', [LandingWebController::class, 'search'])->name('alumni.search');
+Route::get('/detail/{id}', [LandingWebController::class, 'detail'])->name('web.detail');
 
 
 
