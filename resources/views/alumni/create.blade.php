@@ -15,7 +15,7 @@
 
                 <x-breadcrumb>
                     <li class="breadcrumb-item">
-                        <a href="/">{{ __('Dashboard') }}</a>
+                        <a href="/panel">{{ __('Dashboard') }}</a>
                     </li>
                     <li class="breadcrumb-item">
                         <a href="{{ route('alumni.index') }}">{{ __('alumni') }}</a>
