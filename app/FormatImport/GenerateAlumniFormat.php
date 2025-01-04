@@ -30,7 +30,7 @@ class GenerateAlumniFormat implements FromView, ShouldAutoSize, WithEvents, With
     {
         return [
             AfterSheet::class    => function (AfterSheet $event) {
-                $cellRange = 'A1:B1';
+                $cellRange = 'A1:F1';
                 $event->sheet->getStyle($cellRange)->applyFromArray([
                     'borders' => [
                         'allBorders' => [
