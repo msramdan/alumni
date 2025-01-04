@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AlumniExport;
 use App\FormatImport\GenerateAlumniMultiSheet;
+use App\Imports\ImportAlumniMultiSheet;
 use Illuminate\Support\Facades\DB;
 
 
@@ -216,5 +217,24 @@ class AlumniController extends Controller
     public function formatData()
     {
         return Excel::download(new GenerateAlumniMultiSheet(), 'format_import_alumni.xlsx');
+    }
+
+    public function importData(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv|max:2048',
+        ]);
+
+        try {
+            Excel::import(new ImportAlumniMultiSheet, $request->file('file'));
+
+            return redirect()
+                ->route('alumni.index')
+                ->with('success', __('Alumni data imported successfully.'));
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('alumni.index')
+                ->with('error', __('There was an error importing the alumni data: ') . $e->getMessage());
+        }
     }
 }
