@@ -25,11 +25,12 @@ class UpdatePelaksaanDiklatRequest extends FormRequest
     {
         return [
             'diklat_id' => 'nullable|exists:App\Models\Diklat,id',
-			'angkatan' => 'required|string|max:100',
-			'tanggal_mulai' => 'required|date',
-			'tanggal_selesai' => 'required|date',
-			'kota' => 'required|string|max:255',
-			'provinsi' => 'required|string|max:255',
+            'judul_diklat' => 'required|string|max:255',
+            'angkatan' => 'required|string|max:100',
+            'tanggal_mulai' => 'required|date',
+            'tanggal_selesai' => 'required|date',
+            'kota' => 'required|string|max:255',
+            'provinsi' => 'required|string|max:255',
         ];
     }
 }

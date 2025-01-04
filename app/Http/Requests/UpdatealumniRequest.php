@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorealumniRequest extends FormRequest
+class UpdatealumniRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,13 @@ class StorealumniRequest extends FormRequest
     public function rules()
     {
         return [
-            'no_reg' => 'required|numeric',
-			'nama' => 'required|string|max:255',
+            'nama' => 'required|string|max:255',
+			'no_absen' => 'required|numeric',
+			'no_reg' => 'required|numeric',
 			'tempat_lahir' => 'required|string|max:255',
 			'tanggal_lahir' => 'required|date',
+			'photo' => 'nullable|image|max:4024',
+			'pelaksaan_diklat_id' => 'nullable|exists:App\Models\PelaksaanDiklat,id',
         ];
     }
 }

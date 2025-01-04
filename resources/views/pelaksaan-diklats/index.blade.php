@@ -40,6 +40,7 @@
                                     <thead>
                                         <tr>
                                             <th>{{ __('Diklat') }}</th>
+                                            <th>{{ __('Judul') }}</th>
 											<th>{{ __('Angkatan') }}</th>
 											<th>{{ __('Tanggal Mulai') }}</th>
 											<th>{{ __('Tanggal Selesai') }}</th>
@@ -75,6 +76,10 @@
                 {
                     data: 'diklat',
                     name: 'diklat.nama_diklat'
+                },
+                {
+                    data: 'judul_diklat',
+                    name: 'judul_diklat',
                 },
 				{
                     data: 'angkatan',

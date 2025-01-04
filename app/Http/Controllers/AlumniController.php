@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\alumni;
 use App\Http\Requests\{StorealumniRequest, UpdatealumniRequest};
+use App\Models\PelaksaanDiklat;
 use Yajra\DataTables\Facades\DataTables;
+use Image;
 
 class AlumniController extends Controller
 {
@@ -24,9 +26,19 @@ class AlumniController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $alumni = alumni::query();
+            $alumni = alumni::with('pelaksaan_diklat:id,judul_diklat',);
 
-            return DataTables::of($alumni)
+            return Datatables::of($alumni)
+                ->addColumn('pelaksaan_diklat', function ($row) {
+                    return $row->pelaksaan_diklat ? $row->pelaksaan_diklat->judul_diklat : '';
+                })
+                ->addColumn('photo', function ($row) {
+                    if ($row->photo == null) {
+                        return 'https://via.placeholder.com/350?text=No+Image+Avaiable';
+                    }
+                    return asset('uploads/photos/' . $row->photo);
+                })
+
                 ->addColumn('action', 'alumni.include.action')
                 ->toJson();
         }
@@ -41,7 +53,8 @@ class AlumniController extends Controller
      */
     public function create()
     {
-        return view('alumni.create');
+        $pelaksaanDiklats = PelaksaanDiklat::all();
+        return view('alumni.create', compact('pelaksaanDiklats'));
     }
 
     /**
@@ -52,8 +65,26 @@ class AlumniController extends Controller
      */
     public function store(StorealumniRequest $request)
     {
+        $attr = $request->validated();
 
-        alumni::create($request->validated());
+        if ($request->file('photo') && $request->file('photo')->isValid()) {
+
+            $path = public_path('uploads/photos/');
+            $filename = $request->file('photo')->hashName();
+
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+
+            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
+                $constraint->upsize();
+                $constraint->aspectRatio();
+            })->save($path . $filename);
+
+            $attr['photo'] = $filename;
+        }
+
+        alumni::create($attr);
 
         return redirect()
             ->route('alumni.index')
@@ -63,51 +94,88 @@ class AlumniController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\alumni  $alumni
+     * @param  \App\Models\alumni $alumni
      * @return \Illuminate\Http\Response
      */
     public function show(alumni $alumni)
     {
+        $alumni->load('pelaksaan_diklat:id,diklat_id',);
+
         return view('alumni.show', compact('alumni'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\alumni  $alumni
+     * @param  \App\Models\alumni $alumni
      * @return \Illuminate\Http\Response
      */
-    public function edit(alumni $alumni)
+    public function edit($id)
     {
-        return view('alumni.edit', compact('alumni'));
+        $alumni = Alumni::findOrFail($id);
+        $pelaksaanDiklats = PelaksaanDiklat::all();
+        return view('alumni.edit', compact('alumni', 'pelaksaanDiklats'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\alumni  $alumni
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatealumniRequest $request, alumni $alumni)
+    public function update(UpdateAlumniRequest $request, $id)
     {
+        // Mendapatkan alumni berdasarkan ID yang dikirimkan
+        $alumni = Alumni::findOrFail($id);
 
-        $alumni->update($request->validated());
+        // Mendapatkan data validasi dari request
+        $attr = $request->validated();
 
+        // Mengecek jika ada file foto yang di-upload dan valid
+        if ($request->file('photo') && $request->file('photo')->isValid()) {
+
+            $path = public_path('uploads/photos/');
+            $filename = $request->file('photo')->hashName();
+
+            // Membuat folder jika belum ada
+            if (!file_exists($path)) {
+                mkdir($path, 0777, true);
+            }
+
+            // Mengubah ukuran gambar dengan menggunakan Intervention Image
+            Image::make($request->file('photo')->getRealPath())->resize(500, 500, function ($constraint) {
+                $constraint->upsize();
+                $constraint->aspectRatio();
+            })->save($path . $filename);
+
+            // Menghapus foto lama jika ada
+            if ($alumni->photo != null && file_exists($path . $alumni->photo)) {
+                unlink($path . $alumni->photo);
+            }
+
+            // Menambahkan nama foto baru ke dalam data yang akan di-update
+            $attr['photo'] = $filename;
+        }
+
+        // Melakukan update pada data alumni
+        $alumni->update($attr);
+
+        // Mengarahkan kembali ke halaman index alumni dengan pesan sukses
         return redirect()
             ->route('alumni.index')
             ->with('success', __('The alumni was updated successfully.'));
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\alumni  $alumni
+     * @param  \App\Models\alumni $alumni
      * @return \Illuminate\Http\Response
      */
     public function destroy(alumni $alumni)
     {
         try {
+            $path = public_path('uploads/photos/');
+
+            if ($alumni->photo != null && file_exists($path . $alumni->photo)) {
+                unlink($path . $alumni->photo);
+            }
+
             $alumni->delete();
 
             return redirect()

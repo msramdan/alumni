@@ -187,5 +187,7 @@ return [
                 'test view',
             ]
         ],
-  ['group' => 'alumni', 'access' => ['alumni view', 'alumni create', 'alumni edit', 'alumni delete']],['group' => 'diklats', 'access' => ['diklat view', 'diklat create', 'diklat edit', 'diklat delete']],['group' => 'pelaksaan diklats', 'access' => ['pelaksaan diklat view', 'pelaksaan diklat create', 'pelaksaan diklat edit', 'pelaksaan diklat delete']], 
+        ['group' => 'diklats', 'access' => ['diklat view', 'diklat create', 'diklat edit', 'diklat delete']],
+        ['group' => 'pelaksaan diklats', 'access' => ['pelaksaan diklat view', 'pelaksaan diklat create', 'pelaksaan diklat edit', 'pelaksaan diklat delete']],
+  ['group' => 'alumni', 'access' => ['alumni view', 'alumni create', 'alumni edit', 'alumni delete']],
 		],];

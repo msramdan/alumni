@@ -32,6 +32,5 @@ class ViewComposerServiceProvider extends ServiceProvider
             );
         });
 
-
 	}
 }

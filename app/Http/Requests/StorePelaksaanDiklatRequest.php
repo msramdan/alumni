@@ -25,6 +25,7 @@ class StorePelaksaanDiklatRequest extends FormRequest
     {
         return [
             'diklat_id' => 'nullable|exists:App\Models\Diklat,id',
+            'judul_diklat' => 'required|string|max:255',
 			'angkatan' => 'required|string|max:100',
 			'tanggal_mulai' => 'required|date',
 			'tanggal_selesai' => 'required|date',

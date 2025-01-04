@@ -21,14 +21,14 @@ class PelaksaanDiklat extends Model
      *
      * @var string[]
      */
-    protected $fillable = ['diklat_id', 'angkatan', 'tanggal_mulai', 'tanggal_selesai', 'kota', 'provinsi'];
+    protected $fillable = ['diklat_id', 'judul_diklat', 'angkatan', 'tanggal_mulai', 'tanggal_selesai', 'kota', 'provinsi'];
 
     /**
      * The attributes that should be cast.
      *
      * @var string[]
      */
-    protected $casts = ['angkatan' => 'string', 'tanggal_mulai' => 'date:Y-m-d', 'tanggal_selesai' => 'date:Y-m-d', 'kota' => 'string', 'provinsi' => 'string', 'created_at' => 'datetime:Y-m-d H:i:s', 'updated_at' => 'datetime:Y-m-d H:i:s'];
+    protected $casts = ['angkatan' => 'string', 'judul_diklat' => 'string', 'tanggal_mulai' => 'date:Y-m-d', 'tanggal_selesai' => 'date:Y-m-d', 'kota' => 'string', 'provinsi' => 'string', 'created_at' => 'datetime:Y-m-d H:i:s', 'updated_at' => 'datetime:Y-m-d H:i:s'];
 
 
     public function diklat()

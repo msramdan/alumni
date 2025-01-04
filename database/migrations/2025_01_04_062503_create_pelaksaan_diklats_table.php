@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('pelaksaan_diklats', function (Blueprint $table) {
             $table->id();
             $table->foreignId('diklat_id')->nullable()->nullable()->constrained('diklats')->cascadeOnUpdate()->nullOnDelete();
+            $table->string('judul_diklat', 255);
 			$table->string('angkatan', 100);
 			$table->date('tanggal_mulai');
 			$table->date('tanggal_selesai');

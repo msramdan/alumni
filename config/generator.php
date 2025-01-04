@@ -142,7 +142,7 @@ return [
                     'submenus' => []
                 ]
             ]
-                ],
+        ],
         [
             'header' => 'Alumni',
             'permissions' => [
@@ -150,7 +150,7 @@ return [
             ],
             'menus' => [
                 [
-                    'title' => 'Data Alumni',
+                    'title' => 'Alumni',
                     'icon' => '<i class="bi bi-people"></i>',
                     'route' => '/alumni',
                     'permission' => 'alumni view',
@@ -158,7 +158,7 @@ return [
                     'submenus' => []
                 ]
             ]
-        ],
+                ],
         [
             'header' => 'Utilities',
             'permissions' => [

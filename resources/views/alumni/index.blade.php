@@ -39,10 +39,13 @@
                                 <table class="table table-striped" id="data-table" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>{{ __('No Reg') }}</th>
-											<th>{{ __('Nama') }}</th>
+                                            <th>{{ __('Nama') }}</th>
+											<th>{{ __('No Absen') }}</th>
+											<th>{{ __('No Reg') }}</th>
 											<th>{{ __('Tempat Lahir') }}</th>
 											<th>{{ __('Tanggal Lahir') }}</th>
+											<th>{{ __('Photo') }}</th>
+											<th>{{ __('Pelaksaan Diklat') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -71,12 +74,16 @@
             ajax: "{{ route('alumni.index') }}",
             columns: [
                 {
-                    data: 'no_reg',
-                    name: 'no_reg',
-                },
-				{
                     data: 'nama',
                     name: 'nama',
+                },
+				{
+                    data: 'no_absen',
+                    name: 'no_absen',
+                },
+				{
+                    data: 'no_reg',
+                    name: 'no_reg',
                 },
 				{
                     data: 'tempat_lahir',
@@ -85,6 +92,21 @@
 				{
                     data: 'tanggal_lahir',
                     name: 'tanggal_lahir',
+                },
+				{
+                    data: 'photo',
+                    name: 'photo',
+                    orderable: false,
+                    searchable: false,
+                    render: function(data, type, full, meta) {
+                        return `<div class="avatar">
+                            <img src="${data}" alt="Photo" >
+                        </div>`;
+                        }
+                    },
+				{
+                    data: 'pelaksaan_diklat',
+                    name: 'pelaksaan_diklat.judul_diklat'
                 },
                 {
                     data: 'action',
