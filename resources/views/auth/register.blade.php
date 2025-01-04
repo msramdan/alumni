@@ -70,13 +70,6 @@
                         <a href="/login" class="font-bold">{{ __('Log in.') }}</a>
                     </p>
 
-                    @if (Route::has('password.request'))
-                        <p>
-                            <a class="font-bold" href="{{ route('password.request') }}">
-                                {{ __('Forgot password?.') }}
-                            </a>
-                        </p>
-                    @endif
 
                 </div>
             </div>
