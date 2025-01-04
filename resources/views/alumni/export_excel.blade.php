@@ -9,7 +9,7 @@
             <th style="background-color:#D3D3D3">Tanggal Lahir</th>
             <th style="background-color:#D3D3D3">Pelaksanaan Diklat</th>
             <th style="background-color:#D3D3D3">URL Random</th>
-            <th style="background-color:#D3D3D3">URL No Absen</th>
+            <th style="background-color:#D3D3D3">URL No Register</th>
         </tr>
     </thead>
     <tbody>
@@ -23,18 +23,15 @@
                 <td>{{ $row->tanggal_lahir }}</td>
                 <td>{{ $row->pelaksaan_diklat }}</td>
                 <td>
-                    {{-- Hash the no_absen field and generate the URL --}}
                     @php
-                        // Create a hash of no_absen and truncate it to 8 characters
-                        $hashedNoAbsen = substr(md5($row->no_absen), 0, 8);
+                        $hashedNoAbsen = substr(md5($row->no_reg), 0, 8);
                         $randomUrl = url('detail/' . urlencode($hashedNoAbsen));
                     @endphp
                     <a href="{{ $randomUrl }}" target="_blank">{{ $randomUrl }}</a>
                 </td>
                 <td>
-                    {{-- Direct URL using no_absen --}}
                     @php
-                        $directUrl = url('detail/' . urlencode($row->no_absen));
+                        $directUrl = url('detail/' . urlencode($row->no_reg));
                     @endphp
                     <a href="{{ $directUrl }}" target="_blank">{{ $directUrl }}</a>
                 </td>

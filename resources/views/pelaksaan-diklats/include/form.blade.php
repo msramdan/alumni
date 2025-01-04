@@ -22,12 +22,12 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="judul">{{ __('Judul') }}</label>
-            <input type="text" name="judul" id="judul"
-                class="form-control @error('judul') is-invalid @enderror"
-                value="{{ isset($pelaksaanDiklat) ? $pelaksaanDiklat->judul : old('judul') }}"
-                placeholder="{{ __('Judul') }}" required />
-            @error('judul')
+            <label for="judul_diklat">{{ __('Judul Diklat') }}</label>
+            <input type="text" name="judul_diklat" id="judul_diklat"
+                class="form-control @error('judul_diklat') is-invalid @enderror"
+                value="{{ isset($pelaksaanDiklat) ? $pelaksaanDiklat->judul_diklat : old('judul_diklat') }}"
+                placeholder="{{ __('judul_diklat') }}" required />
+            @error('judul_diklat')
                 <span class="text-danger">
                     {{ $message }}
                 </span>

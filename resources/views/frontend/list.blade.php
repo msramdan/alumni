@@ -156,7 +156,7 @@
                 <div class="row">
                     @foreach ($alumnis as $alumni)
                     <div class="col-md-3 mb-3">
-                        <a href="{{ route('web.detail', ['randomNoAbsen' => substr(md5($alumni->no_absen), 0, 8)]) }}" class="text-decoration-none">
+                        <a href="{{ route('web.detail', ['randomNoReg' => substr(md5($alumni->no_reg), 0, 8)]) }}" class="text-decoration-none">
                             <div class="card">
                                 <img src="{{ $alumni->photo ? asset('uploads/photos/' . $alumni->photo) : 'https://via.placeholder.com/350?text=No+Image+Available' }}"
                                     alt="Photo" class="card-img-top rounded" height="300"

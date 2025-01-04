@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Multi Traning</title>
+    <title>Multi Traning Kompetensi</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <link href="{{ asset('landing') }}/assets/img/logo.png" rel="icon">
@@ -27,7 +27,7 @@
         <div class="container-fluid container-xl position-relative d-flex align-items-center">
             <a href="{{ route('web') }}" class="logo d-flex align-items-center me-auto">
                 <img src="{{ asset('landing') }}/assets/img/logo.png" alt="">
-                <h1 class="sitename">Multi Traning</h1>
+                <h1 class="sitename">Multi Traning Kompetensi</h1>
             </a>
 
             <nav id="navmenu" class="navmenu">

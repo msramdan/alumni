@@ -17,11 +17,11 @@ class LandingWebController extends Controller
     {
         $alumnis = DB::table('alumni')
             ->orderBy('no_absen', 'asc')
-            ->paginate(9);
+            ->paginate(100);
         return view('frontend.list', compact('alumnis'));
     }
 
-    public function detail($randomNoAbsen, Request $request)
+    public function detail($randomNoReg, Request $request)
     {
         // Find the alumni by the hashed no_absen
         $alumni = DB::table('alumni')
@@ -35,12 +35,11 @@ class LandingWebController extends Controller
                 'pelaksaan_diklats.kota',
                 'pelaksaan_diklats.provinsi'
             )
-            // Compare the hash of the no_absen field
-            ->whereRaw('substr(md5(alumni.no_absen), 1, 8) = ?', [$randomNoAbsen])
+            ->whereRaw('substr(md5(alumni.no_reg), 1, 8) = ?', [$randomNoReg])
             ->first();
 
         if (!$alumni) {
-            // Handle the case where no alumni was found with the provided randomNoAbsen
+            // Handle the case where no alumni was found with the provided randomNoReg
             return redirect()->route('web.list')->with('error', 'Alumni not found.');
         }
 
@@ -58,7 +57,7 @@ class LandingWebController extends Controller
             $suggestions = $suggestions->map(function ($item) {
                 return [
                     'nama' => $item->nama,
-                    'url' => route('web.detail', ['randomNoAbsen' => substr(md5($item->no_absen), 0, 8)])
+                    'url' => route('web.detail', ['randomNoReg' => substr(md5($item->no_absen), 0, 8)])
                 ];
             });
 
