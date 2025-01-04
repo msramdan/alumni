@@ -40,7 +40,7 @@ class AlumniController extends Controller
                     'alumni.*',
                     'pelaksaan_diklats.judul_diklat'
                 )
-                ->orderBy('alumni.no_absen', 'asc');  // Add order by 'no_absen'
+                ->orderBy('alumni.no_reg', 'asc');  // Add order by 'no_absen'
 
             return Datatables::of($alumni)
                 ->addIndexColumn()
@@ -138,17 +138,24 @@ class AlumniController extends Controller
         return view('alumni.edit', compact('alumni', 'pelaksaanDiklats'));
     }
 
-    public function update(UpdateAlumniRequest $request, $id)
+    public function update(Request $request, $id)
     {
         // Mendapatkan alumni berdasarkan ID yang dikirimkan
         $alumni = Alumni::findOrFail($id);
 
-        // Mendapatkan data validasi dari request
-        $attr = $request->validated();
+        // Validasi input secara langsung di controller
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'no_absen' => 'required|numeric',
+            'no_reg' => 'required|numeric|unique:alumni,no_reg,' . $id,
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'photo' => 'nullable|image|max:4024',
+            'pelaksaan_diklat_id' => 'nullable|exists:pelaksaan_diklats,id',
+        ]);
 
         // Mengecek jika ada file foto yang di-upload dan valid
         if ($request->file('photo') && $request->file('photo')->isValid()) {
-
             $path = public_path('uploads/photos/');
             $filename = $request->file('photo')->hashName();
 
@@ -164,22 +171,23 @@ class AlumniController extends Controller
             })->save($path . $filename);
 
             // Menghapus foto lama jika ada
-            if ($alumni->photo != null && file_exists($path . $alumni->photo)) {
+            if ($alumni->photo && file_exists($path . $alumni->photo)) {
                 unlink($path . $alumni->photo);
             }
 
-            // Menambahkan nama foto baru ke dalam data yang akan di-update
-            $attr['photo'] = $filename;
+            // Menambahkan nama file baru ke dalam data yang akan di-update
+            $validatedData['photo'] = $filename;
         }
 
         // Melakukan update pada data alumni
-        $alumni->update($attr);
+        $alumni->update($validatedData);
 
-        // Mengarahkan kembali ke halaman index alumni dengan pesan sukses
+        // Redirect ke halaman index alumni dengan pesan sukses
         return redirect()
             ->route('alumni.index')
             ->with('success', __('The alumni was updated successfully.'));
     }
+
 
 
     /**

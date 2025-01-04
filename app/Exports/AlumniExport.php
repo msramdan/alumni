@@ -32,7 +32,7 @@ class AlumniExport implements FromView, ShouldAutoSize, WithEvents, WithTitle
                 'alumni.photo',
                 'pelaksaan_diklats.judul_diklat as pelaksaan_diklat'
             )
-            ->orderBy('alumni.no_absen', 'asc')  // Order by no_absen in ascending order
+            ->orderBy('alumni.no_reg', 'asc')  // Order by no_absen in ascending order
             ->get(); // Use get() to fetch all data
 
         // Return the view for Excel export and pass the data to the view
