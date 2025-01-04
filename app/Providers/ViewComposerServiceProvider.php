@@ -31,5 +31,7 @@ class ViewComposerServiceProvider extends ServiceProvider
                 Role::select('id', 'name')->get()
             );
         });
-    }
+
+
+	}
 }

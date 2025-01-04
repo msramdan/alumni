@@ -48,3 +48,4 @@ Route::middleware(['auth', 'permission:test view'])->get('/tests', function () {
 Route::resource('alumni', App\Http\Controllers\AlumniController::class)->middleware('auth');
 
 Route::resource('diklats', App\Http\Controllers\DiklatController::class)->middleware('auth');
+Route::resource('pelaksaan-diklats', App\Http\Controllers\PelaksaanDiklatController::class)->middleware('auth');

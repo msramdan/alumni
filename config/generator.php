@@ -128,6 +128,22 @@ return [
             ]
         ],
         [
+            'header' => 'Pelaksaan Diklat',
+            'permissions' => [
+                'pelaksaan diklat view'
+            ],
+            'menus' => [
+                [
+                    'title' => 'Pelaksaan Diklat',
+                    'icon' => '<i class="bi bi-list"></i>',
+                    'route' => '/pelaksaan-diklats',
+                    'permission' => 'pelaksaan diklat view',
+                    'permissions' => [],
+                    'submenus' => []
+                ]
+            ]
+                ],
+        [
             'header' => 'Alumni',
             'permissions' => [
                 'alumni view'
