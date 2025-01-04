@@ -18,8 +18,8 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth', 'web'])->group(function () {
-    Route::get('/', fn () => view('dashboard'));
-    Route::get('/dashboard', fn () => view('dashboard'));
+    Route::get('/', fn() => view('dashboard'));
+    Route::get('/dashboard', fn() => view('dashboard'));
 
     Route::get('/profile', App\Http\Controllers\ProfileController::class)->name('profile');
 
@@ -32,8 +32,8 @@ Route::middleware(['auth', 'permission:test view'])->get('/tests', function () {
 })->name('tests.index');
 
 Route::middleware(['auth', 'web'])->group(function () {
-    Route::get('/', fn () => view('dashboard'));
-    Route::get('/dashboard', fn () => view('dashboard'));
+    Route::get('/', fn() => view('dashboard'));
+    Route::get('/dashboard', fn() => view('dashboard'));
 
     Route::get('/profile', App\Http\Controllers\ProfileController::class)->name('profile');
 
@@ -43,3 +43,5 @@ Route::middleware(['auth', 'web'])->group(function () {
 Route::resource('diklats', App\Http\Controllers\DiklatController::class)->middleware('auth');
 Route::resource('pelaksaan-diklats', App\Http\Controllers\PelaksaanDiklatController::class)->middleware('auth');
 Route::resource('alumni', App\Http\Controllers\AlumniController::class)->middleware('auth');
+Route::get('alumni/export', [App\Http\Controllers\AlumniController::class, 'exportData'])->name('alumni.export');
+Route::post('alumni/import', [App\Http\Controllers\AlumniController::class, 'importData'])->name('alumni.import');

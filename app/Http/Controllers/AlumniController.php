@@ -7,6 +7,11 @@ use App\Http\Requests\{StorealumniRequest, UpdatealumniRequest};
 use App\Models\PelaksaanDiklat;
 use Yajra\DataTables\Facades\DataTables;
 use Image;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AlumniExport;
+use Illuminate\Support\Facades\DB;
+
 
 class AlumniController extends Controller
 {
@@ -26,19 +31,24 @@ class AlumniController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-            $alumni = alumni::with('pelaksaan_diklat:id,judul_diklat',);
+            $alumni = DB::table('alumni')
+                ->leftJoin('pelaksaan_diklats', 'alumni.pelaksaan_diklat_id', '=', 'pelaksaan_diklats.id')
+                ->select(
+                    'alumni.*',
+                    'pelaksaan_diklats.judul_diklat'
+                );
 
             return Datatables::of($alumni)
-                ->addColumn('pelaksaan_diklat', function ($row) {
-                    return $row->pelaksaan_diklat ? $row->pelaksaan_diklat->judul_diklat : '';
+                ->addIndexColumn()
+                ->addColumn('judul_diklat', function ($row) {
+                    return $row->judul_diklat ?? '';
                 })
                 ->addColumn('photo', function ($row) {
                     if ($row->photo == null) {
-                        return 'https://via.placeholder.com/350?text=No+Image+Avaiable';
+                        return 'https://via.placeholder.com/350?text=No+Image+Available';
                     }
                     return asset('uploads/photos/' . $row->photo);
                 })
-
                 ->addColumn('action', 'alumni.include.action')
                 ->toJson();
         }
@@ -97,13 +107,19 @@ class AlumniController extends Controller
      * @param  \App\Models\alumni $alumni
      * @return \Illuminate\Http\Response
      */
-    public function show(alumni $alumni)
+    public function show($id)
     {
-        $alumni->load('pelaksaan_diklat:id,diklat_id',);
+        $alumni = DB::table('alumni')
+            ->leftJoin('pelaksaan_diklats', 'alumni.pelaksaan_diklat_id', '=', 'pelaksaan_diklats.id')
+            ->select(
+                'alumni.*',
+                'pelaksaan_diklats.judul_diklat'
+            )
+            ->where('alumni.id', $id) // Add where condition for the specific alumni id
+            ->first(); // Use first() to get a single result
 
         return view('alumni.show', compact('alumni'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -186,5 +202,11 @@ class AlumniController extends Controller
                 ->route('alumni.index')
                 ->with('error', __("The alumni can't be deleted because it's related to another table."));
         }
+    }
+
+    public function exportData()
+    {
+        dd('sini');
+        return Excel::download(new AlumniExport, 'alumni_data.xlsx');
     }
 }

@@ -35,46 +35,42 @@
                             <div class="table-responsive">
                                 <table class="table table-hover table-striped">
                                     <tr>
-                                            <td class="fw-bold">{{ __('Nama') }}</td>
-                                            <td>{{ $alumni->nama }}</td>
-                                        </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('No Absen') }}</td>
-                                            <td>{{ $alumni->no_absen }}</td>
-                                        </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('No Reg') }}</td>
-                                            <td>{{ $alumni->no_reg }}</td>
-                                        </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('Tempat Lahir') }}</td>
-                                            <td>{{ $alumni->tempat_lahir }}</td>
-                                        </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('Tanggal Lahir') }}</td>
-                                            <td>{{ isset($alumni->tanggal_lahir) ? $alumni->tanggal_lahir->format('Y-m-d') : ''  }}</td>
-                                        </tr>
-									<tr>
+                                        <td class="fw-bold">{{ __('Nama') }}</td>
+                                        <td>{{ $alumni->nama }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('No Absen') }}</td>
+                                        <td>{{ $alumni->no_absen }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('No Reg') }}</td>
+                                        <td>{{ $alumni->no_reg }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('Tempat Lahir') }}</td>
+                                        <td>{{ $alumni->tempat_lahir }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('Tanggal Lahir') }}</td>
+                                        <td>{{ $alumni->tanggal_lahir }}</td>
+                                    </tr>
+                                    <tr>
                                         <td class="fw-bold">{{ __('Photo') }}</td>
                                         <td>
                                             @if ($alumni->photo == null)
-                                            <img src="https://via.placeholder.com/350?text=No+Image+Avaiable" alt="Photo"  class="rounded" width="200" height="150" style="object-fit: cover">
+                                                <img src="https://via.placeholder.com/350?text=No+Image+Avaiable"
+                                                    alt="Photo" class="rounded" width="200" height="150"
+                                                    style="object-fit: cover">
                                             @else
-                                                <img src="{{ asset('uploads/photos/' . $alumni->photo) }}" alt="Photo" class="rounded" width="200" height="150" style="object-fit: cover">
+                                                <img src="{{ asset('uploads/photos/' . $alumni->photo) }}" alt="Photo"
+                                                    class="rounded" width="200" height="150" style="object-fit: cover">
                                             @endif
                                         </td>
                                     </tr>
-									<tr>
+                                    <tr>
                                         <td class="fw-bold">{{ __('Pelaksaan Diklat') }}</td>
-                                        <td>{{ $alumni->pelaksaan_diklat ? $alumni->pelaksaan_diklat->diklat_id : '' }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">{{ __('Created at') }}</td>
-                                        <td>{{ $alumni->created_at->format('Y-m-d H:i:s') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="fw-bold">{{ __('Updated at') }}</td>
-                                        <td>{{ $alumni->updated_at->format('Y-m-d H:i:s') }}</td>
+                                        <td>{{ $alumni->judul_diklat }}
+                                        </td>
                                     </tr>
                                 </table>
                             </div>
