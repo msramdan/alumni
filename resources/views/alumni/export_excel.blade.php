@@ -21,7 +21,14 @@
                 <td>{{ $row->tempat_lahir }}</td>
                 <td>{{ $row->tanggal_lahir }}</td>
                 <td>{{ $row->pelaksaan_diklat }}</td>
-                <td></td>
+                <td>
+                    {{-- Encrypt the no_absen field and generate the URL --}}
+                    @php
+                        $encryptedNoAbsen = \Crypt::encryptString($row->no_absen);
+                        $url = url('web/alumni/' . urlencode($encryptedNoAbsen));
+                    @endphp
+                    <a href="{{ $url }}" target="_blank">{{ $url }}</a>
+                </td>
             </tr>
         @endforeach
     </tbody>
