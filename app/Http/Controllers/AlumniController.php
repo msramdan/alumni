@@ -206,7 +206,6 @@ class AlumniController extends Controller
 
     public function exportData()
     {
-        dd('sini');
         return Excel::download(new AlumniExport, 'alumni_data.xlsx');
     }
 }
