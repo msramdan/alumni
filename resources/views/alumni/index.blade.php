@@ -60,10 +60,13 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">{{ __('Import') }}</button>
                             </form>
+                            <hr>
+                            <a href="{{ route('format.import') }}" >{{ __('Download Import Format') }}</a>
                         </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="row">
                 <div class="col-md-12">

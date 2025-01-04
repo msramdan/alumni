@@ -45,3 +45,5 @@ Route::resource('pelaksaan-diklats', App\Http\Controllers\PelaksaanDiklatControl
 Route::resource('alumni', App\Http\Controllers\AlumniController::class)->middleware('auth');
 Route::get('/export-alumni', [App\Http\Controllers\AlumniController::class, 'exportData'])->name('alumni.export');
 Route::post('/import-alumni', [App\Http\Controllers\AlumniController::class, 'importData'])->name('alumni.import');
+Route::get('/import-format', [App\Http\Controllers\AlumniController::class, 'formatData'])->name('format.import');
+

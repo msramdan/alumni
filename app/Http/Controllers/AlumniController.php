@@ -10,6 +10,7 @@ use Image;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\AlumniExport;
+use App\FormatImport\GenerateAlumniMultiSheet;
 use Illuminate\Support\Facades\DB;
 
 
@@ -210,5 +211,10 @@ class AlumniController extends Controller
     public function exportData()
     {
         return Excel::download(new AlumniExport, 'alumni_data.xlsx');
+    }
+
+    public function formatData()
+    {
+        return Excel::download(new GenerateAlumniMultiSheet(), 'format_import_alumni.xlsx');
     }
 }
