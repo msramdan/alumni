@@ -27,14 +27,14 @@
                     @php
                         // Create a hash of no_absen and truncate it to 8 characters
                         $hashedNoAbsen = substr(md5($row->no_absen), 0, 8);
-                        $randomUrl = url('web/alumni/' . urlencode($hashedNoAbsen));
+                        $randomUrl = url('detail/' . urlencode($hashedNoAbsen));
                     @endphp
                     <a href="{{ $randomUrl }}" target="_blank">{{ $randomUrl }}</a>
                 </td>
                 <td>
                     {{-- Direct URL using no_absen --}}
                     @php
-                        $directUrl = url('web/alumni/' . urlencode($row->no_absen));
+                        $directUrl = url('detail/' . urlencode($row->no_absen));
                     @endphp
                     <a href="{{ $directUrl }}" target="_blank">{{ $directUrl }}</a>
                 </td>

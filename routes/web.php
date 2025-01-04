@@ -23,7 +23,7 @@ Route::get('/web', function () {
 Route::get('/', [LandingWebController::class, 'index'])->name('web');
 Route::get('/list', [LandingWebController::class, 'list'])->name('web.list');
 Route::get('/alumni/search', [LandingWebController::class, 'search'])->name('alumni.search');
-Route::get('/detail/{id}', [LandingWebController::class, 'detail'])->name('web.detail');
+Route::get('/detail/{randomNoAbsen}', [LandingWebController::class, 'detail'])->name('web.detail');
 
 
 

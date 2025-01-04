@@ -1,62 +1,103 @@
 @extends('frontend.landing')
 
-@section('title', __('Home'))
+@section('title', __('Detail Alumni'))
 
 @section('content')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .alumni-photo {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .alumni-detail {
+            padding-left: 30px;
+        }
+
+        .alumni-detail h3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .alumni-detail p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Styling for the comment section */
+        .comments-section {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .comment-item {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+
+        .comment-item .d-flex {
+            align-items: center;
+        }
+
+        .comment-item img {
+            border-radius: 50%;
+        }
+
+        .comment-item p {
+            margin: 0;
+        }
+
+        .comment-item .text-muted {
+            font-size: 0.875rem;
+        }
+
+        .comment-item strong {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+    </style>
+
     <main class="main">
-        <section id="hero" class="hero section">
-            <div class="hero-bg">
-                <img src="{{ asset('landing') }}/assets/img/hero-bg-light.webp" alt="">
+        <div class="page-title" data-aos="fade">
+            <div class="container d-lg-flex justify-content-between align-items-center">
+                <h1 class="mb-2 mb-lg-0"></h1>
             </div>
-            <div class="container text-center">
-                <div class="d-flex flex-column justify-content-center align-items-center">
-                    <h1 data-aos="fade-up">Welcome to <span>Alumni Validation</span></h1>
-                    <p data-aos="fade-up" data-aos-delay="100">
-                        Platform ini dibuat untuk memvalidasi apakah alumni terdaftar atau tidak dengan cepat dan efisien.
-                    </p>
+        </div>
 
-                    </p>
-                    <img src="{{ asset('landing') }}/assets/img/hero-services-img.webp" class="img-fluid hero-img"
-                        alt="" data-aos="zoom-out" data-aos-delay="300">
-                </div>
+        <section id="starter-section" class="starter-section section">
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Detail Alumni</h2>
             </div>
-        </section>
+            <div class="container d-flex justify-content-center" data-aos="fade-up">
+                <div class="row">
+                    <!-- Left Column: Photo -->
+                    <div class="col-md-4 mb-4">
+                        <img src="{{ $alumni->photo ? asset('uploads/photos/' . $alumni->photo) : 'https://via.placeholder.com/350?text=No+Image+Available' }}"
+                             alt="Photo" class="alumni-photo" />
+                    </div>
 
-        <section id="featured-services" class="featured-services section light-background">
-            <div class="container">
-                <div class="row gy-4">
-                    <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="service-item d-flex">
-                            <div class="icon flex-shrink-0"><i class="bi bi-person-check"></i></div>
-                            <div>
-                                <h4 class="title"><a href="#" class="stretched-link">Validasi Alumni</a></h4>
-                                <p class="description">Cek status alumni apakah terdaftar di database kami dengan mudah dan cepat.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                        <div class="service-item d-flex">
-                            <div class="icon flex-shrink-0"><i class="bi bi-file-earmark-check"></i></div>
-                            <div>
-                                <h4 class="title"><a href="#" class="stretched-link">Proses Verifikasi</a></h4>
-                                <p class="description">Proses verifikasi yang cepat dan aman untuk memastikan status alumni terdaftar.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="300">
-                        <div class="service-item d-flex">
-                            <div class="icon flex-shrink-0"><i class="bi bi-shield-check"></i></div>
-                            <div>
-                                <h4 class="title"><a href="#" class="stretched-link">Akses Aman</a></h4>
-                                <p class="description">Kami menjaga data alumni dengan sistem keamanan terbaik untuk memastikan kevalidan informasi.</p>
-                            </div>
-                        </div>
+                    <!-- Right Column: Detail Information -->
+                    <div class="col-md-8 mb-4 alumni-detail">
+                        <h3>{{ $alumni->nama }}</h3>
+                        <p><strong>Tempat Lahir:</strong> {{ $alumni->tempat_lahir }}</p>
+                        <p><strong>Tanggal Lahir:</strong> {{ \Carbon\Carbon::parse($alumni->tanggal_lahir)->format('d M Y') }}</p>
+                        <p>
+                            Adalah benar, sah dan tercatat dalam database kami sebagai peserta Diklat, serta diterbitkan Sertifikat {{ $alumni->judul_diklat }}
+                            Angkatan {{ $alumni->angkatan }} tanggal {{ $alumni->tanggal_mulai }} s/d {{ $alumni->tanggal_selesai }} yang dilaksanakan di kota {{ $alumni->kota }} Provinsi {{ $alumni->provinsi }}.
+                        </p>
                     </div>
                 </div>
-
-
             </div>
-
         </section>
 
     </main>

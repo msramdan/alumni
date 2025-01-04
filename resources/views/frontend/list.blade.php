@@ -138,7 +138,8 @@
         <section id="starter-section" class="starter-section section">
             <div class="container section-title" data-aos="fade-up">
                 <h2>Daftar Alumni</h2>
-                <p>Berikut adalah daftar alumni yang telah terdaftar di sistem kami. Temukan alumni yang ingin Anda cari.</p>
+                <p>Berikut adalah daftar alumni yang telah terdaftar di sistem kami. Temukan alumni yang ingin Anda cari.
+                </p>
             </div>
             <div class="container" data-aos="fade-up">
                 <!-- Start Search Bar -->
@@ -153,21 +154,26 @@
                     </div>
                 </div>
                 <div class="row">
-                    @foreach($alumnis as $alumni)
-                        <div class="col-md-3 mb-3">
+                    @foreach ($alumnis as $alumni)
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ route('web.detail', ['randomNoAbsen' => substr(md5($alumni->no_absen), 0, 8)]) }}" class="text-decoration-none">
                             <div class="card">
                                 <img src="{{ $alumni->photo ? asset('uploads/photos/' . $alumni->photo) : 'https://via.placeholder.com/350?text=No+Image+Available' }}"
-                                     alt="Photo" class="card-img-top rounded" height="300" style="object-fit: cover">
+                                    alt="Photo" class="card-img-top rounded" height="300"
+                                    style="object-fit: cover">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $alumni->nama }}</h5>
                                     <p class="card-text">
                                         <i class="fas fa-map-marker-alt"></i> {{ $alumni->tempat_lahir }} <br>
-                                        <i class="fas fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($alumni->tanggal_lahir)->format('d M Y') }}
+                                        <i class="fas fa-calendar-alt"></i>
+                                        {{ \Carbon\Carbon::parse($alumni->tanggal_lahir)->format('d M Y') }}
                                     </p>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        </a>
+                    </div>
+                @endforeach
+
                 </div>
                 <div class="pagination-container text-center mt-4">
                     {{ $alumnis->links('pagination::bootstrap-5') }}
