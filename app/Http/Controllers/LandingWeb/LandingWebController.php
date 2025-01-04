@@ -41,10 +41,29 @@ class LandingWebController extends Controller
 
         if (!$alumni) {
             // Handle the case where no alumni was found with the provided randomNoAbsen
-            return redirect()->route('web.alumni.index')->with('error', 'Alumni not found.');
+            return redirect()->route('web.list')->with('error', 'Alumni not found.');
         }
 
         return view('frontend.detail', compact('alumni'));
     }
 
+    public function search(Request $request)
+    {
+        if ($request->has('query')) {
+            $query = $request->get('query');
+            $suggestions = DB::table('alumni')
+                ->where('nama', 'like', "%{$query}%")
+                ->limit(5)
+                ->get(['nama', 'id', 'no_absen']);
+            $suggestions = $suggestions->map(function ($item) {
+                return [
+                    'nama' => $item->nama,
+                    'url' => route('web.detail', ['randomNoAbsen' => substr(md5($item->no_absen), 0, 8)])
+                ];
+            });
+
+
+            return response()->json(['suggestions' => $suggestions]);
+        }
+    }
 }

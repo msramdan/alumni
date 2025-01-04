@@ -205,7 +205,7 @@
                     suggestions.forEach(suggestion => {
                         let div = document.createElement('div');
                         div.classList.add('suggestion-item');
-                        div.textContent = suggestion.judul;
+                        div.textContent = suggestion.nama;
                         div.addEventListener('click', function() {
                             window.location.href = suggestion.url;
                         });
