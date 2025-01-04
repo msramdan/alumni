@@ -31,12 +31,14 @@ class AlumniController extends Controller
     public function index()
     {
         if (request()->ajax()) {
+            // Query the alumni data and add order by no_absen
             $alumni = DB::table('alumni')
                 ->leftJoin('pelaksaan_diklats', 'alumni.pelaksaan_diklat_id', '=', 'pelaksaan_diklats.id')
                 ->select(
                     'alumni.*',
                     'pelaksaan_diklats.judul_diklat'
-                );
+                )
+                ->orderBy('alumni.no_absen', 'asc');  // Add order by 'no_absen'
 
             return Datatables::of($alumni)
                 ->addIndexColumn()
@@ -55,6 +57,7 @@ class AlumniController extends Controller
 
         return view('alumni.index');
     }
+
 
     /**
      * Show the form for creating a new resource.

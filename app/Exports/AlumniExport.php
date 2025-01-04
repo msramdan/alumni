@@ -19,7 +19,7 @@ class AlumniExport implements FromView, ShouldAutoSize, WithEvents, WithTitle
 
     public function view(): View
     {
-        // Query the alumni data
+        // Query the alumni data and order by 'no_absen'
         $data = DB::table('alumni')
             ->leftJoin('pelaksaan_diklats', 'alumni.pelaksaan_diklat_id', '=', 'pelaksaan_diklats.id')
             ->select(
@@ -32,6 +32,7 @@ class AlumniExport implements FromView, ShouldAutoSize, WithEvents, WithTitle
                 'alumni.photo',
                 'pelaksaan_diklats.judul_diklat as pelaksaan_diklat'
             )
+            ->orderBy('alumni.no_absen', 'asc')  // Order by no_absen in ascending order
             ->get(); // Use get() to fetch all data
 
         // Return the view for Excel export and pass the data to the view
@@ -44,7 +45,7 @@ class AlumniExport implements FromView, ShouldAutoSize, WithEvents, WithTitle
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
-                $cellRange = 'A1:H1';
+                $cellRange = 'A1:I1';
                 $event->sheet->getStyle($cellRange)->applyFromArray([
                     'borders' => [
                         'allBorders' => [

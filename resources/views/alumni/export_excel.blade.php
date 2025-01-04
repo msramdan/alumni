@@ -8,7 +8,8 @@
             <th style="background-color:#D3D3D3">Tempat Lahir</th>
             <th style="background-color:#D3D3D3">Tanggal Lahir</th>
             <th style="background-color:#D3D3D3">Pelaksanaan Diklat</th>
-            <th style="background-color:#D3D3D3">URL QR</th>
+            <th style="background-color:#D3D3D3">URL Random</th>
+            <th style="background-color:#D3D3D3">URL No Absen</th>
         </tr>
     </thead>
     <tbody>
@@ -22,12 +23,20 @@
                 <td>{{ $row->tanggal_lahir }}</td>
                 <td>{{ $row->pelaksaan_diklat }}</td>
                 <td>
-                    {{-- Encrypt the no_absen field and generate the URL --}}
+                    {{-- Hash the no_absen field and generate the URL --}}
                     @php
-                        $encryptedNoAbsen = \Crypt::encryptString($row->no_absen);
-                        $url = url('web/alumni/' . urlencode($encryptedNoAbsen));
+                        // Create a hash of no_absen and truncate it to 8 characters
+                        $hashedNoAbsen = substr(md5($row->no_absen), 0, 8);
+                        $randomUrl = url('web/alumni/' . urlencode($hashedNoAbsen));
                     @endphp
-                    <a href="{{ $url }}" target="_blank">{{ $url }}</a>
+                    <a href="{{ $randomUrl }}" target="_blank">{{ $randomUrl }}</a>
+                </td>
+                <td>
+                    {{-- Direct URL using no_absen --}}
+                    @php
+                        $directUrl = url('web/alumni/' . urlencode($row->no_absen));
+                    @endphp
+                    <a href="{{ $directUrl }}" target="_blank">{{ $directUrl }}</a>
                 </td>
             </tr>
         @endforeach
