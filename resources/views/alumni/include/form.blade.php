@@ -73,11 +73,10 @@
                 <div class="col-md-4 text-center">
                     @if ($alumni->photo == null)
                         <img src="https://via.placeholder.com/350?text=No+Image+Avaiable" alt="Photo"
-                            class="rounded mb-2 mt-2" alt="Photo" width="200" height="150"
-                            style="object-fit: cover">
+                            class="rounded mb-2 mt-2" width="200" height="150" style="object-fit: cover">
                     @else
                         <img src="{{ asset('uploads/photos/' . $alumni->photo) }}" alt="Photo" class="rounded mb-2 mt-2"
-                            width="200" height="150" style="object-fit: cover">
+                            width="113" height="150" style="object-fit: cover">
                     @endif
                 </div>
 

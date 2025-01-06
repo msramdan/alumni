@@ -59,11 +59,10 @@
                                         <td>
                                             @if ($alumni->photo == null)
                                                 <img src="https://via.placeholder.com/350?text=No+Image+Avaiable"
-                                                    alt="Photo" class="rounded" width="200" height="150"
-                                                    style="object-fit: cover">
+                                                    alt="Photo" class="rounded" width="200" height="150" style="object-fit: cover">
                                             @else
                                                 <img src="{{ asset('uploads/photos/' . $alumni->photo) }}" alt="Photo"
-                                                    class="rounded" width="200" height="150" style="object-fit: cover">
+                                                    class="rounded" width="113" height="150" style="object-fit: cover">
                                             @endif
                                         </td>
                                     </tr>
