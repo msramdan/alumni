@@ -95,7 +95,11 @@
                         </p>
                         <p>
                             Adalah benar, sah dan tercatat dalam database kami sebagai peserta Diklat, serta diterbitkan Sertifikat {{ $alumni->judul_diklat }}
-                            Angkatan {{ $alumni->angkatan }} tanggal {{ $alumni->tanggal_mulai }} s/d {{ $alumni->tanggal_selesai }} yang dilaksanakan di kota {{ $alumni->kota }} Provinsi {{ $alumni->provinsi }}.
+                            Angkatan {{ $alumni->angkatan }} tanggal
+                            {{ $alumni->tanggal_mulai ? \Carbon\Carbon::parse($alumni->tanggal_mulai)->format('d/m/Y') : '-' }}
+                            s/d
+                            {{ $alumni->tanggal_selesai ? \Carbon\Carbon::parse($alumni->tanggal_selesai)->format('d/m/Y') : '-' }}
+                            yang dilaksanakan di kota {{ $alumni->kota }} Provinsi {{ $alumni->provinsi }}.
                         </p>
                     </div>
                 </div>

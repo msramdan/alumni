@@ -38,33 +38,27 @@
                                         <td class="fw-bold">{{ __('Diklat') }}</td>
                                         <td>{{ $pelaksaanDiklat->diklat ? $pelaksaanDiklat->diklat->nama_diklat : '' }}</td>
                                     </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('Angkatan') }}</td>
-                                            <td>{{ $pelaksaanDiklat->angkatan }}</td>
-                                        </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('Tanggal Mulai') }}</td>
-                                            <td>{{ isset($pelaksaanDiklat->tanggal_mulai) ? $pelaksaanDiklat->tanggal_mulai->format('Y-m-d') : ''  }}</td>
-                                        </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('Tanggal Selesai') }}</td>
-                                            <td>{{ isset($pelaksaanDiklat->tanggal_selesai) ? $pelaksaanDiklat->tanggal_selesai->format('Y-m-d') : ''  }}</td>
-                                        </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('Kota') }}</td>
-                                            <td>{{ $pelaksaanDiklat->kota }}</td>
-                                        </tr>
-									<tr>
-                                            <td class="fw-bold">{{ __('Provinsi') }}</td>
-                                            <td>{{ $pelaksaanDiklat->provinsi }}</td>
-                                        </tr>
                                     <tr>
-                                        <td class="fw-bold">{{ __('Created at') }}</td>
-                                        <td>{{ $pelaksaanDiklat->created_at->format('Y-m-d H:i:s') }}</td>
+                                        <td class="fw-bold">{{ __('Angkatan') }}</td>
+                                        <td>{{ $pelaksaanDiklat->angkatan }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold">{{ __('Updated at') }}</td>
-                                        <td>{{ $pelaksaanDiklat->updated_at->format('Y-m-d H:i:s') }}</td>
+                                        <td class="fw-bold">{{ __('Tanggal Mulai') }}</td>
+                                        <td>{{ isset($pelaksaanDiklat->tanggal_mulai) ? \Carbon\Carbon::parse($pelaksaanDiklat->tanggal_mulai)->format('d/m/Y') : '' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('Tanggal Selesai') }}</td>
+                                        <td>{{ isset($pelaksaanDiklat->tanggal_selesai) ? \Carbon\Carbon::parse($pelaksaanDiklat->tanggal_selesai)->format('d/m/Y') : '' }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('Kota') }}</td>
+                                        <td>{{ $pelaksaanDiklat->kota }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">{{ __('Provinsi') }}</td>
+                                        <td>{{ $pelaksaanDiklat->provinsi }}</td>
                                     </tr>
                                 </table>
                             </div>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\alumni;
+use App\Models\Alumni;
 use App\Http\Requests\{StorealumniRequest, UpdatealumniRequest};
 use App\Models\PelaksaanDiklat;
 use Yajra\DataTables\Facades\DataTables;
@@ -104,7 +104,7 @@ class AlumniController extends Controller
             $attr['photo'] = $filename;
         }
 
-        alumni::create($attr);
+        Alumni::create($attr);
 
         return redirect()
             ->route('alumni.index')

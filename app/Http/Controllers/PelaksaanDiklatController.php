@@ -30,7 +30,18 @@ class PelaksaanDiklatController extends Controller
             return DataTables::of($pelaksaanDiklats)
                 ->addColumn('diklat', function ($row) {
                     return $row->diklat ? $row->diklat->nama_diklat : '';
-                })->addColumn('action', 'pelaksaan-diklats.include.action')
+                })
+                ->addColumn('tanggal_mulai', function ($row) {
+                    return $row->tanggal_mulai
+                        ? \Carbon\Carbon::parse($row->tanggal_mulai)->format('d/m/Y')
+                        : '';
+                })
+                ->addColumn('tanggal_selesai', function ($row) {
+                    return $row->tanggal_selesai
+                        ? \Carbon\Carbon::parse($row->tanggal_selesai)->format('d/m/Y')
+                        : '';
+                })
+                ->addColumn('action', 'pelaksaan-diklats.include.action')
                 ->toJson();
         }
 
