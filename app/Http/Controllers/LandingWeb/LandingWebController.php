@@ -23,7 +23,7 @@ class LandingWebController extends Controller
 
     public function detail($randomNoReg, Request $request)
     {
-        // Find the alumni by the hashed no_absen
+        // Find the alumni by the hashed no_reg
         $alumni = DB::table('alumni')
             ->leftJoin('pelaksaan_diklats', 'alumni.pelaksaan_diklat_id', '=', 'pelaksaan_diklats.id')
             ->select(
@@ -39,12 +39,13 @@ class LandingWebController extends Controller
             ->first();
 
         if (!$alumni) {
-            // Handle the case where no alumni was found with the provided randomNoReg
-            return redirect()->route('web.list')->with('error', 'Alumni not found.');
+            // Redirect to the 404 Not Found page
+            abort(404);
         }
 
         return view('frontend.detail', compact('alumni'));
     }
+
 
     public function search(Request $request)
     {
