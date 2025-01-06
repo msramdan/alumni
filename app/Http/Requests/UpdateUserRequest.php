@@ -33,11 +33,11 @@ class UpdateUserRequest extends FormRequest
                 'nullable',
                 'confirmed',
                 Password::min(8)
-                    ->letters()
-                    ->mixedCase()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised()
+                    // ->letters()
+                    // ->mixedCase()
+                    // ->numbers()
+                    // ->symbols()
+                    // ->uncompromised()
             ]
         ];
     }

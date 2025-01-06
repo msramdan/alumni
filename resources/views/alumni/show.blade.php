@@ -52,7 +52,7 @@
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Tanggal Lahir') }}</td>
-                                        <td>{{ $alumni->tanggal_lahir }}</td>
+                                        <td>{{ $alumni->tanggal_lahir ? \Carbon\Carbon::parse($alumni->tanggal_lahir)->format('d/m/Y') : '-' }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">{{ __('Photo') }}</td>

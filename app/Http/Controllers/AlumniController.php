@@ -47,6 +47,11 @@ class AlumniController extends Controller
                 ->addColumn('judul_diklat', function ($row) {
                     return $row->judul_diklat ?? '';
                 })
+                ->addColumn('tanggal_lahir', function ($row) {
+                    return $row->tanggal_lahir
+                        ? \Carbon\Carbon::parse($row->tanggal_lahir)->format('d/m/Y')
+                        : '';
+                })
                 ->addColumn('photo', function ($row) {
                     if ($row->photo == null) {
                         return 'https://via.placeholder.com/350?text=No+Image+Available';
@@ -196,9 +201,10 @@ class AlumniController extends Controller
      * @param  \App\Models\alumni $alumni
      * @return \Illuminate\Http\Response
      */
-    public function destroy(alumni $alumni)
+    public function destroy($id)
     {
         try {
+            $alumni = Alumni::findOrFail($id);
             $path = public_path('uploads/photos/');
 
             if ($alumni->photo != null && file_exists($path . $alumni->photo)) {
@@ -210,12 +216,17 @@ class AlumniController extends Controller
             return redirect()
                 ->route('alumni.index')
                 ->with('success', __('The alumni was deleted successfully.'));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return redirect()
+                ->route('alumni.index')
+                ->with('error', __('The alumni could not be found.'));
         } catch (\Throwable $th) {
             return redirect()
                 ->route('alumni.index')
                 ->with('error', __("The alumni can't be deleted because it's related to another table."));
         }
     }
+
 
     public function exportData()
     {

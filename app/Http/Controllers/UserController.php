@@ -6,6 +6,7 @@ use App\Http\Requests\{StoreUserRequest, UpdateUserRequest};
 use App\Models\User;
 use Yajra\DataTables\Facades\DataTables;
 use Image;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -58,7 +59,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $roles = Role::select('id', 'name')->get();
+
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -120,8 +123,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $user->load('roles:id,name');
-
-        return view('users.edit', compact('user'));
+        $roles = Role::select('id', 'name')->get();
+        return view('users.edit', compact('user','roles'));
     }
 
     /**

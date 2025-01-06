@@ -90,7 +90,9 @@
                     <div class="col-md-8 mb-4 alumni-detail">
                         <h3>{{ $alumni->nama }}</h3>
                         <p><strong>Tempat Lahir:</strong> {{ $alumni->tempat_lahir }}</p>
-                        <p><strong>Tanggal Lahir:</strong> {{ \Carbon\Carbon::parse($alumni->tanggal_lahir)->format('d M Y') }}</p>
+                        <p><strong>Tanggal Lahir:</strong>
+                            {{ $alumni->tanggal_lahir ? \Carbon\Carbon::parse($alumni->tanggal_lahir)->format('d/m/Y') : '-' }}
+                        </p>
                         <p>
                             Adalah benar, sah dan tercatat dalam database kami sebagai peserta Diklat, serta diterbitkan Sertifikat {{ $alumni->judul_diklat }}
                             Angkatan {{ $alumni->angkatan }} tanggal {{ $alumni->tanggal_mulai }} s/d {{ $alumni->tanggal_selesai }} yang dilaksanakan di kota {{ $alumni->kota }} Provinsi {{ $alumni->provinsi }}.
