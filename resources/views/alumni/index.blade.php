@@ -115,6 +115,7 @@
             processing: true,
             serverSide: true,
             ajax: "{{ route('alumni.index') }}",
+            pageLength: 100, // Set default to 100 rows per page
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
