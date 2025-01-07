@@ -21,13 +21,15 @@ Route::get('/web', function () {
     return redirect()->route('web');
 });
 Route::get('/', [LandingWebController::class, 'index'])->name('web');
-// Route::get('/list', [LandingWebController::class, 'list'])->name('web.list');
-// Route::get('/alumni/search', [LandingWebController::class, 'search'])->name('alumni.search');
+Route::get('/list', [LandingWebController::class, 'list'])->name('web.list');
+Route::get('/alumni/search', [LandingWebController::class, 'search'])->name('alumni.search');
 Route::get('/detail/{randomNoReg}', [LandingWebController::class, 'detail'])->name('web.detail');
 Route::get('/generate', function(){
     \Illuminate\Support\Facades\Artisan::call('storage:link');
     echo 'ok';
  });
+
+ Route::post('/check-password', [LandingWebController::class, 'checkPassword'])->name('alumni.checkPassword');
 
 
 

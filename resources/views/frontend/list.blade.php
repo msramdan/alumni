@@ -128,6 +128,38 @@
         }
     </style>
 
+    <style>
+        .modal-backdrop.show {
+            opacity: 1;
+        }
+    </style>
+
+    @if (!session()->has('sessionPasswordAlumni'))
+        <!-- Modal Bootstrap 5 -->
+        <div class="modal fade" id="passwordModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="passwordModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="passwordModalLabel">Akses Halaman</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form id="passwordForm">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Masukkan Password:</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <div id="error-message" class="text-danger"></div>
+                            <button type="submit" class="btn btn-primary w-100">Submit</button>
+                        </form>
+                        <a href="{{ url('/') }}" class="btn btn-secondary w-100 mt-3">Kembali ke Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+
     <main class="main">
         <div class="page-title" data-aos="fade">
             <div class="container d-lg-flex justify-content-between align-items-center">
@@ -155,24 +187,25 @@
                 </div>
                 <div class="row">
                     @foreach ($alumnis as $alumni)
-                    <div class="col-md-3 mb-3">
-                        <a href="{{ route('web.detail', ['randomNoReg' => substr(md5($alumni->no_reg), 0, 8)]) }}" class="text-decoration-none">
-                            <div class="card">
-                                <img src="{{ $alumni->photo ? asset('uploads/photos/' . $alumni->photo) : 'https://via.placeholder.com/350?text=No+Image+Available' }}"
-                                    alt="Photo" class="card-img-top rounded" height="300"
-                                    style="object-fit: cover">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $alumni->nama }}</h5>
-                                    <p class="card-text">
-                                        <i class="fas fa-map-marker-alt"></i> {{ $alumni->tempat_lahir }} <br>
-                                        <i class="fas fa-calendar-alt"></i>
-                                        {{ \Carbon\Carbon::parse($alumni->tanggal_lahir)->format('d M Y') }}
-                                    </p>
+                        <div class="col-md-3 mb-3">
+                            <a href="{{ route('web.detail', ['randomNoReg' => substr(md5($alumni->no_reg), 0, 8)]) }}"
+                                class="text-decoration-none">
+                                <div class="card">
+                                    <img src="{{ $alumni->photo ? asset('uploads/photos/' . $alumni->photo) : 'https://via.placeholder.com/350?text=No+Image+Available' }}"
+                                        alt="Photo" class="card-img-top rounded" height="300"
+                                        style="object-fit: cover">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $alumni->nama }}</h5>
+                                        <p class="card-text">
+                                            <i class="fas fa-map-marker-alt"></i> {{ $alumni->tempat_lahir }} <br>
+                                            <i class="fas fa-calendar-alt"></i>
+                                            {{ \Carbon\Carbon::parse($alumni->tanggal_lahir)->format('d M Y') }}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                @endforeach
+                            </a>
+                        </div>
+                    @endforeach
 
                 </div>
                 <div class="pagination-container text-center mt-4">
@@ -182,7 +215,7 @@
             </div>
         </section>
     </main>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         // JavaScript/jQuery for search suggestions
         document.getElementById('search').addEventListener('input', function() {
@@ -216,4 +249,44 @@
                 });
         }
     </script>
+    <script>
+        $(document).ready(function() {
+            @if (!session()->has('sessionPasswordAlumni'))
+                // Show the modal when the page loads
+                var passwordModal = new bootstrap.Modal($('#passwordModal')[0]);
+                passwordModal.show();
+
+                // Handle password form submission
+                $('#passwordForm').submit(function(e) {
+                    e.preventDefault();
+
+                    var password = $('#password').val();
+                    var errorMessage = $('#error-message');
+
+                    $.ajax({
+                        url: '{{ route('alumni.checkPassword') }}',
+                        method: 'POST',
+                        data: JSON.stringify({
+                            password: password
+                        }),
+                        contentType: 'application/json',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        success: function(data) {
+                            if (data.success) {
+                                location.reload(); // Reload page if successful
+                            } else {
+                                errorMessage.text(data.message);
+                            }
+                        },
+                        error: function() {
+                            errorMessage.text('Terjadi kesalahan, coba lagi.');
+                        }
+                    });
+                });
+            @endif
+        });
+    </script>
+
 @endsection

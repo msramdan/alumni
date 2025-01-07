@@ -67,7 +67,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="fw-bold">{{ __('Pelaksaan Diklat') }}</td>
+                                        <td class="fw-bold">{{ __('Pelaksanaan Diklat') }}</td>
                                         <td>{{ $alumni->judul_diklat }}
                                         </td>
                                     </tr>

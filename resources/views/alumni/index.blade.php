@@ -83,7 +83,7 @@
                                             <th>{{ __('Tempat Lahir') }}</th>
                                             <th>{{ __('Tanggal Lahir') }}</th>
                                             <th>{{ __('Photo') }}</th>
-                                            <th>{{ __('Pelaksaan Diklat') }}</th>
+                                            <th>{{ __('Pelaksanaan Diklat') }}</th>
                                             <th>{{ __('Action') }}</th>
                                         </tr>
                                     </thead>
@@ -153,7 +153,7 @@
                 },
                 {
                     data: 'judul_diklat',
-                    name: 'pelaksaan_diklat.judul_diklat'
+                    name: 'pelaksaan_diklats.judul_diklat'
                 },
                 {
                     data: 'action',

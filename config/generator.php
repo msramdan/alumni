@@ -134,7 +134,7 @@ return [
             ],
             'menus' => [
                 [
-                    'title' => 'Pelaksaan Diklat',
+                    'title' => 'Pelaksanaan Diklat',
                     'icon' => '<i class="bi bi-list"></i>',
                     'route' => '/pelaksaan-diklats',
                     'permission' => 'pelaksaan diklat view',

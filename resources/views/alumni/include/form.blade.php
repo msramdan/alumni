@@ -115,10 +115,10 @@
     @endisset
     <div class="col-md-6">
         <div class="form-group">
-            <label for="pelaksaan-diklat-id">{{ __('Pelaksaan Diklat') }}</label>
+            <label for="pelaksaan-diklat-id">{{ __('Pelaksanaan Diklat') }}</label>
             <select class="form-select @error('pelaksaan_diklat_id') is-invalid @enderror" name="pelaksaan_diklat_id"
                 id="pelaksaan-diklat-id" class="form-control">
-                <option value="" selected disabled>-- {{ __('Select pelaksaan diklat') }} --</option>
+                <option value="" selected disabled>-- {{ __('Select pelaksanaan diklat') }} --</option>
 
                 @foreach ($pelaksaanDiklats as $pelaksaanDiklat)
                     <option value="{{ $pelaksaanDiklat->id }}"

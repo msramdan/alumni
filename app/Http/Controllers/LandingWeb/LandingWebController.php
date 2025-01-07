@@ -5,6 +5,7 @@ namespace App\Http\Controllers\LandingWeb;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class LandingWebController extends Controller
 {
@@ -65,5 +66,19 @@ class LandingWebController extends Controller
 
             return response()->json(['suggestions' => $suggestions]);
         }
+    }
+
+    public function checkPassword(Request $request)
+    {
+        $validated = $request->validate([
+            'password' => 'required|string',
+        ]);
+
+        if ($validated['password'] === 'indonesia45') {
+            Session::put('sessionPasswordAlumni', true);
+            Session::put('sessionPasswordAlumniExpires', now()->addMinutes(10));
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false, 'message' => 'Password salah.']);
     }
 }

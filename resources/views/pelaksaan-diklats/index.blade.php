@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
-@section('title', __('Pelaksaan Diklats'))
+@section('title', __('Pelaksanaan Diklat'))
 
 @section('content')
     <div class="page-heading">
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-8 order-md-1 order-last">
-                    <h3>{{ __('Pelaksaan Diklats') }}</h3>
+                    <h3>{{ __('Pelaksanaan Diklat') }}</h3>
                     <p class="text-subtitle text-muted">
-                        {{ __('Below is a list of all pelaksaan diklats.') }}
+                        {{ __('Below is a list of all Pelaksanaan Diklat.') }}
                     </p>
                 </div>
                 <x-breadcrumb>
                     <li class="breadcrumb-item"><a href="/panel">{{ __('Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ __('Pelaksaan Diklats') }}</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('Pelaksanaan Diklat') }}</li>
                 </x-breadcrumb>
             </div>
         </div>
@@ -26,7 +26,7 @@
                 <div class="d-flex justify-content-end">
                     <a href="{{ route('pelaksaan-diklats.create') }}" class="btn btn-primary mb-3">
                         <i class="fas fa-plus"></i>
-                        {{ __('Create a new pelaksaan diklat') }}
+                        {{ __('Create a new pelaksanaan diklat') }}
                     </a>
                 </div>
                 @endcan
