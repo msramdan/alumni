@@ -61,7 +61,7 @@
                                 <button type="submit" class="btn btn-primary">{{ __('Import') }}</button>
                             </form>
                             <hr>
-                            <a href="{{ route('format.import') }}" >{{ __('Download Import Format') }}</a>
+                            <a href="{{ route('format.import') }}">{{ __('Download Import Format') }}</a>
                         </div>
                     </div>
                 </div>
@@ -110,59 +110,72 @@
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.js"></script>
-    <script>
-        $('#data-table').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('alumni.index') }}",
-            pageLength: 100, // Set default to 100 rows per page
-            columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex',
-                    orderable: false,
-                    searchable: false,
-                }, {
-                    data: 'nama',
-                    name: 'nama',
-                },
-                {
-                    data: 'no_absen',
-                    name: 'no_absen',
-                },
-                {
-                    data: 'no_reg',
-                    name: 'no_reg',
-                },
-                {
-                    data: 'tempat_lahir',
-                    name: 'tempat_lahir',
-                },
-                {
-                    data: 'tanggal_lahir',
-                    name: 'tanggal_lahir',
-                },
-                {
-                    data: 'photo',
-                    name: 'photo',
-                    orderable: false,
-                    searchable: false,
-                    render: function(data, type, full, meta) {
-                        return `<div class="avatar">
+    @push('js')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.0/datatables.min.js"></script>
+        <script>
+            // Get the current page from the URL (default to 1 if not found)
+            var urlParams = new URLSearchParams(window.location.search);
+            var page = urlParams.has('page') ? parseInt(urlParams.get('page')) : 1;
+
+            $('#data-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('alumni.index') }}",
+                pageLength: 100, // Set default to 100 rows per page
+                stateSave: true, // Enable state saving to preserve the page
+                stateDuration: -1, // Save the state indefinitely
+                displayStart: (page - 1) * 100, // Set the starting point for the page
+                columns: [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false,
+                    },
+                    {
+                        data: 'nama',
+                        name: 'nama',
+                    },
+                    {
+                        data: 'no_absen',
+                        name: 'no_absen',
+                    },
+                    {
+                        data: 'no_reg',
+                        name: 'no_reg',
+                    },
+                    {
+                        data: 'tempat_lahir',
+                        name: 'tempat_lahir',
+                    },
+                    {
+                        data: 'tanggal_lahir',
+                        name: 'tanggal_lahir',
+                    },
+                    {
+                        data: 'photo',
+                        name: 'photo',
+                        orderable: false,
+                        searchable: false,
+                        render: function(data, type, full, meta) {
+                            return `<div class="avatar">
                             <img src="${data}" alt="Photo" >
                         </div>`;
+                        }
+                    },
+                    {
+                        data: 'judul_diklat',
+                        name: 'pelaksaan_diklats.judul_diklat'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
                     }
-                },
-                {
-                    data: 'judul_diklat',
-                    name: 'pelaksaan_diklats.judul_diklat'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                }
-            ],
-        });
-    </script>
-@endpush
+                ],
+            });
+        </script>
+    @endpush

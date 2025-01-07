@@ -23,7 +23,7 @@ class AlumniSeeder extends Seeder
         $alumni = [];
 
         // Generate 120 dummy alumni records
-        for ($i = 0; $i < 120; $i++) {
+        for ($i = 0; $i < 500; $i++) {
             $alumni[] = [
                 'nama' => $faker->name,
                 'no_absen' => $i + 1, // Use a sequential number for `no_absen`
