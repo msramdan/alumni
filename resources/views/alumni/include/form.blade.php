@@ -103,7 +103,7 @@
             <div class="form-group">
                 <label for="photo">{{ __('Photo') }}</label>
                 <input type="file" name="photo" class="form-control @error('photo') is-invalid @enderror"
-                    id="photo" required>
+                    id="photo">
 
                 @error('photo')
                     <span class="text-danger">

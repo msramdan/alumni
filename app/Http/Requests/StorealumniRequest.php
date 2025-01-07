@@ -29,7 +29,7 @@ class StorealumniRequest extends FormRequest
             'no_reg' => 'required|numeric|unique:alumni,no_reg', // Validasi unik ditambahkan
             'tempat_lahir' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
-            'photo' => 'required|image|max:4024',
+            'photo' => 'nullable|image|max:4024',
             'pelaksaan_diklat_id' => 'nullable|exists:App\Models\PelaksaanDiklat,id',
         ];
     }
